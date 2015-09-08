@@ -15,9 +15,9 @@ public class Pickupable : MonoBehaviour {
 	
 	}
 
-	public void TurnToPickup()
+	public void TurnToPickup(Vector3 pos)
 	{
-		Instantiate(pickupVersion, transform.position, Quaternion.identity);
+		Instantiate(pickupVersion, pos, Quaternion.identity);
 
 		Destroy (this.gameObject);
 	}

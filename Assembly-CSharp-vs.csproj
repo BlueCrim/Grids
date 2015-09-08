@@ -58,7 +58,7 @@
      <Compile Include="Assets\Platforms\Ladder.cs" />
      <Compile Include="Assets\Platforms\Pickupable.cs" />
      <Compile Include="Assets\Platforms\Platform.cs" />
-     <Compile Include="Assets\WorldItem.cs" />
+     <Compile Include="Assets\WorldItems\WorldItem.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

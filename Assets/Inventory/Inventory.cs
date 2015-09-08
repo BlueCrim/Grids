@@ -253,7 +253,7 @@ public class Inventory : MonoBehaviour
 					Pickupable target = hitPlatform.collider.GetComponent<Pickupable>();
 					if(target != null)
 					{
-						target.TurnToPickup();
+						target.TurnToPickup(hitPlayer.collider.transform.position);
 					}
 				}
 			}
