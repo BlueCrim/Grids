@@ -7,18 +7,19 @@ public class Controller : MonoBehaviour {
 	private float speed = 5.0f;                         // Speed of movement
 	private float jumpTime;
 
-	public bool falling, moving;
+	public bool falling, moving, beginMove;
 	public bool onGround, onLadder;
 
 	public LayerMask platformLayer;
 	public LayerMask playerLayer;
 
-	private int frameDelay, frameDelayValue = 2;
+	public int frameDelay, frameDelayValue = 2;
 
 	void Start () {
 		pos = transform.position;          // Take the initial position
 		falling = false;
 		moving = false;
+		beginMove = false;
 		onGround = true;
 		onLadder = false;
 		frameDelay = frameDelayValue;
@@ -31,61 +32,76 @@ public class Controller : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (Vector3.SqrMagnitude(transform.position - pos) < 0.0001) {
+			beginMove = false;
 			moving = false;
-		}
-
-		if (!onLadder && !onGround) {
-			falling = true;
-		} else {
-			falling = false;
-		}
-		
-		if (falling && !moving) 
-		{
-			if(frameDelay == 0)
-			{
-				pos += Vector3.down;
-				moving = true;
-				frameDelay = frameDelayValue;
-			}
-			frameDelay--;
-		}
-		if(Input.GetKey(KeyCode.A) && 	//input
-		   !moving) 					//condition
-		{        						// Left
+			frameDelay = frameDelayValue;
 			pos = transform.position;   
-			pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y));
-			preMove = pos;
-			pos += Vector3.left;
-			moving = true;
-		}
-		if(Input.GetKey(KeyCode.D) && 	//input
-		   !moving) 					//condition
-		{						        // Right
-			pos = transform.position;
-			pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y));
-			preMove = pos;
-			pos += Vector3.right;
-			moving = true;
+			pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
 		}
 
-		if(Input.GetKey(KeyCode.W) && 	//input
-		   !moving && onLadder) 		//condition
-		{						        // Up
-			pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y));
-			pos += Vector3.up;
-			moving = true;
+		if (!moving) {
+			if (!onLadder && !onGround) {
+				falling = true;
+			} else {
+				falling = false;
+			}
+		
+			if (falling) {
+				pos = transform.position;   
+				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+				pos += Vector3.down;
+				beginMove = true;
+			}
+
+			//Left
+			if (Input.GetKey (KeyCode.A) && //input
+				!moving) { 					//condition
+				pos = transform.position;   
+				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+				preMove = pos;
+				pos += Vector3.left;
+				beginMove = true;
+			}
+
+			//Right
+			if (Input.GetKey (KeyCode.D) && //input
+				!moving) { 					//condition
+				pos = transform.position;
+				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+				preMove = pos;
+				pos += Vector3.right;
+				beginMove = true;
+			}
+
+			// Up
+			if (Input.GetKey (KeyCode.W) && //input
+				!moving && onLadder) { 		//condition						     
+				pos = transform.position;   
+				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+				pos += Vector3.up;
+				beginMove = true;
+			}
+
+			//Down
+			if (Input.GetKey (KeyCode.S) && 				//input
+				!moving && onLadder && !onGround) { 		//condition
+				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+				pos += Vector3.down;
+				beginMove = true;
+			}
+
+			if(beginMove && frameDelay == 0)
+			{
+				moving = true;
+			}
+			else if(beginMove){
+				frameDelay--;
+			}
 		}
 
-		if(Input.GetKey(KeyCode.S) && 				//input
-		   !moving && onLadder && !onGround) 		//condition
-		{						        			// Down
-			pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y));
-			pos += Vector3.down;
-			moving = true;
+		if (moving) {
+			transform.position = Vector3.MoveTowards (transform.position, pos, Time.deltaTime * speed);   // Move there
 		}
-
-		transform.position = Vector3.MoveTowards (transform.position, pos, Time.deltaTime * speed);   // Move there
 
 
 	}
