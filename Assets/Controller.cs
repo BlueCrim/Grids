@@ -13,7 +13,7 @@ public class Controller : MonoBehaviour {
 	public LayerMask platformLayer;
 	public LayerMask playerLayer;
 
-	private int frameDelay;
+	private int frameDelay, frameDelayValue = 2;
 
 	void Start () {
 		pos = transform.position;          // Take the initial position
@@ -21,7 +21,7 @@ public class Controller : MonoBehaviour {
 		moving = false;
 		onGround = true;
 		onLadder = false;
-		frameDelay = 2;
+		frameDelay = frameDelayValue;
 	}
 
 	void Update()
@@ -31,11 +31,6 @@ public class Controller : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (Vector3.SqrMagnitude(transform.position - pos) < 0.0001) {
-			if(moving)
-			{
-				//transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
-				//pos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y));
-			}
 			moving = false;
 		}
 
@@ -51,7 +46,7 @@ public class Controller : MonoBehaviour {
 			{
 				pos += Vector3.down;
 				moving = true;
-				frameDelay = 2;
+				frameDelay = frameDelayValue;
 			}
 			frameDelay--;
 		}
@@ -99,7 +94,7 @@ public class Controller : MonoBehaviour {
 	{
 		if (other.tag == "Ladder" && Vector3.SqrMagnitude(transform.position - other.transform.position) < 0.1) {
 			onLadder = true;
-			frameDelay = 2;
+			frameDelay = frameDelayValue;
 		}
 	}
 
