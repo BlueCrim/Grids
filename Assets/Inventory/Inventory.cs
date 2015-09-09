@@ -25,41 +25,41 @@ public class Inventory : MonoBehaviour
 	public Texture2D image, highlight;
 	public Rect position;
 	
-	public int slotX;
-	public int slotY;
+	public int slotX, slotY;	//offset of the first slot (top-left) from the edge of image
 
-	public GameObject character;
+	public GameObject character;	//reference to the player character
 
 	public List<Item> items = new List<Item>();
-	int numSlotsW = 14, numSlotsH = 7;
 	public Slot[,] slots;
+	
+	public LayerMask platformLayer;
+	public LayerMask playerLayer;
+	
+	public Toggle pickupToggle;
 
 	public List<GameObject> platforms;
 
-	public LayerMask platformLayer;
-	public LayerMask playerLayer;
-
-	public Toggle pickupToggle;
+	[HideInInspector]
 	public bool pickupMode;		//pickup or place item mode
 
-	int slotSizeW = 39;
-	int slotSizeH = 34;
+	private int slotSizeW = 39;	//how many across each slot is
+	private int slotSizeH = 34;	//how high each slot is
+	
+	private int numSlotsW = 14;	//how many slots across in the inventory
+	private int numSlotsH = 7;	//how many slots high in inventory
 
 	private Item temp;			//item being operated on
 	private Vector2 selected;
-
-	private bool tester;
 
 	private bool movingItem;	//are we moving an item?
 
 	private RaycastHit2D hitPlatform, hitPlayer; //raycast has hit platform or player
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		slots = new Slot[numSlotsW,numSlotsH];
 		setSlots ();
-		tester = false;
 		movingItem = false;
 		pickupToggle.onValueChanged.AddListener (TogglePickupMode);
 		Inventory.instance = this;
@@ -78,20 +78,6 @@ public class Inventory : MonoBehaviour
 			{
 				slots[x, y] = new Slot(new Rect(slotX + slotSizeW * x, slotY + slotSizeH * y, slotSizeW, slotSizeH));
 			}
-		}
-	}
-
-	void testMethod()
-	{
-		addItem (2, 0, Items.getPlatform(0));
-		tester = true;
-	}
-	// Update is called once per frame
-	void Update () 
-	{
-		if (!tester) 
-		{
-			testMethod();
 		}
 	}
 

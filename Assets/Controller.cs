@@ -7,19 +7,19 @@ public class Controller : MonoBehaviour {
 	private float speed = 5.0f;                         // Speed of movement
 	private float jumpTime;
 
-	public bool falling, moving, beginMove;
+	public bool falling, moving, canMove;
 	public bool onGround, onLadder;
 
 	public LayerMask platformLayer;
 	public LayerMask playerLayer;
 
-	public int frameDelay, frameDelayValue = 2;
+	public int frameDelay, frameDelayValue = 1;
 
 	void Start () {
 		pos = transform.position;          // Take the initial position
 		falling = false;
 		moving = false;
-		beginMove = false;
+		canMove = false;
 		onGround = true;
 		onLadder = false;
 		frameDelay = frameDelayValue;
@@ -31,26 +31,24 @@ public class Controller : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (Vector3.SqrMagnitude(transform.position - pos) < 0.0001) {
-			beginMove = false;
-			moving = false;
-			frameDelay = frameDelayValue;
-			pos = transform.position;   
-			pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+		if ((Vector3.SqrMagnitude(transform.position - pos) < 0.0001) && moving) {
+			StopMovement();
+		}
+		
+		if (!moving && canMove && !onLadder && !onGround) {
+			falling = true;
+		} else {
+			falling = false;
 		}
 
-		if (!moving) {
-			if (!onLadder && !onGround) {
-				falling = true;
-			} else {
-				falling = false;
-			}
+		if (canMove) {
 		
 			if (falling) {
 				pos = transform.position;   
 				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
 				pos += Vector3.down;
-				beginMove = true;
+				moving = true;
+				//canMove = true;
 			}
 
 			//Left
@@ -60,7 +58,8 @@ public class Controller : MonoBehaviour {
 				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
 				preMove = pos;
 				pos += Vector3.left;
-				beginMove = true;
+				moving = true;
+				//canMove = true;
 			}
 
 			//Right
@@ -70,7 +69,8 @@ public class Controller : MonoBehaviour {
 				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
 				preMove = pos;
 				pos += Vector3.right;
-				beginMove = true;
+				moving = true;
+				//canMove = true;
 			}
 
 			// Up
@@ -79,7 +79,8 @@ public class Controller : MonoBehaviour {
 				pos = transform.position;   
 				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
 				pos += Vector3.up;
-				beginMove = true;
+				moving = true;
+				//canMove = true;
 			}
 
 			//Down
@@ -87,30 +88,38 @@ public class Controller : MonoBehaviour {
 				!moving && onLadder && !onGround) { 		//condition
 				pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
 				pos += Vector3.down;
-				beginMove = true;
-			}
-
-			if(beginMove && frameDelay == 0)
-			{
 				moving = true;
-			}
-			else if(beginMove){
-				frameDelay--;
+				//canMove = true;
 			}
 		}
 
-		if (moving) {
-			transform.position = Vector3.MoveTowards (transform.position, pos, Time.deltaTime * speed);   // Move there
+		if(!canMove && frameDelay == 0)
+		{
+			canMove = true;
 		}
+		else if(!canMove){
+			frameDelay--;
+		}
+
+		transform.position = Vector3.MoveTowards (transform.position, pos, Time.deltaTime * speed);   // Move there
+
 
 
 	}
 
+	void StopMovement ()
+	{
+		canMove = false;
+		moving = false;
+		frameDelay = frameDelayValue;
+		pos = transform.position;   
+		pos = new Vector3 (Mathf.Round (pos.x), Mathf.Round (pos.y));
+	}
+
 	void OnTriggerStay2D(Collider2D other)
 	{
-		if (other.tag == "Ladder" && Vector3.SqrMagnitude(transform.position - other.transform.position) < 0.1) {
+		if (other.tag == "Ladder" && (transform.position.x - other.transform.position.x) < 0.1) {
 			onLadder = true;
-			frameDelay = frameDelayValue;
 		}
 	}
 
@@ -123,9 +132,10 @@ public class Controller : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		Debug.Log ("Hit the ground");
-		pos = transform.position;
-		falling = false;
+		if (falling) {
+			StopMovement ();
+			falling = false;
+		}
 	}
 
 	void OnCollisionStay2D(Collision2D other){
@@ -135,6 +145,7 @@ public class Controller : MonoBehaviour {
 			{
 				onGround = true;
 				falling = false;
+
 			}
 			if(platform.isAWall())
 			{

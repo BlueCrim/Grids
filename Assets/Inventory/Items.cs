@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class Items : MonoBehaviour 
 {
-	public List<Sword> swordInspector;
-	private static List<Sword> swords;
 	private static int idCount;
 
 	public List<PlatformItem> platforms;
@@ -18,7 +16,6 @@ public class Items : MonoBehaviour
 
 	void Start()
 	{
-		swords = swordInspector;
 		idCount = 0;
 	}
 
@@ -26,15 +23,6 @@ public class Items : MonoBehaviour
 	{
 		Items.idCount++;
 		return idCount;
-	}
-
-	public static Sword getSword(int id)
-	{
-		Sword sword = new Sword ();
-		sword.image = Items.swords [id].image;
-		sword.width = Items.swords [id].width;
-		sword.height = Items.swords [id].height;
-		return sword;
 	}
 
 	public static PlatformItem getPlatform(int id)
