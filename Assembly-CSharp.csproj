@@ -64,6 +64,7 @@
      <Compile Include="Assets\Platforms\Scripts\Platform.cs" />
      <Compile Include="Assets\Platforms\Scripts\Rope.cs" />
      <Compile Include="Assets\PlayerInfo.cs" />
+     <Compile Include="Assets\PuzzlePrefabs\ChunkInfo.cs" />
      <Compile Include="Assets\PuzzlePrefabs\PuzzleChunk.cs" />
      <Compile Include="Assets\WorldItems\WorldItem.cs" />
  <Reference Include="UnityEngine.UI">
