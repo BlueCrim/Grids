@@ -15,8 +15,8 @@ public class Controller : MonoBehaviour {
 
 	public int frameDelay, frameDelayValue = 1;
 
-	void Start () {
-		pos = transform.position;          // Take the initial position
+	void Awake () {
+		//pos = transform.position;          // Take the initial position
 		falling = false;
 		moving = false;
 		canMove = false;

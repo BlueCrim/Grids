@@ -116,11 +116,11 @@ public class Inventory : MonoBehaviour
 
 	public bool AddToInventory (Item item)
 	{
-		for(int x = 0; x < 14; x++)
+		for(int x = 0; x < numSlotsW; x++)
 		{
-			for(int y = 0; y < 7; y++)
+			for(int y = 0; y < numSlotsH; y++)
 			{
-				if(addItem(y, x, item))
+				if(addItem(x, y, item))
 				{
 					return true;
 				}
@@ -133,9 +133,11 @@ public class Inventory : MonoBehaviour
 	{
 		//check that we don't leave the bounds of inventory
 		if (x + item.width > numSlotsW) {
+			Debug.Log("Too far");
 			return false;
 		}
 		if (y + item.height > numSlotsH) {
+			Debug.Log("Too far");
 			return false;
 		}
 

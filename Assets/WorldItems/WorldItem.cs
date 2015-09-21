@@ -31,6 +31,7 @@ public class WorldItem : MonoBehaviour {
 		if (other.tag == "Platform") {
 			rigidBody2D.gravityScale = 0;
 			rigidBody2D.velocity = Vector2.zero;
+			transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
 		}
 	}
 

@@ -27,13 +27,19 @@ public class Rope : MonoBehaviour {
 	{
 		Vector3 smallIncrement = Vector3.up / 5;
 
-		for (int i = 0; i < 50; i++) {
+
+
+		for (int i = 0; i < (length * 5); i++) {
 			if (!hitPlatform) {
 				this.transform.position += smallIncrement;
 			} else {
 				break;
 			}
 			yield return new WaitForSeconds (0.03f);
+		}
+
+		if (!hitPlatform) {
+			gameObject.GetComponent<Pickupable>().TurnToPickup(transform.position);
 		}
 		StartCoroutine ("UnfurlRope");
 	}
@@ -49,7 +55,7 @@ public class Rope : MonoBehaviour {
 	IEnumerator UnfurlRope()
 	{
 		Vector3 pos = this.transform.position;
-		
+
 		for (int i =  1; i <= length; i++) {
 			GameObject temp = (GameObject)Instantiate (ropeBits, new Vector3 (pos.x, pos.y - i), Quaternion.identity);
 			temp.gameObject.transform.SetParent (this.transform);

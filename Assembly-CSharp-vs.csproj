@@ -46,8 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Bridge.cs" />
      <Compile Include="Assets\Controller.cs" />
+     <Compile Include="Assets\ExitPoint.cs" />
      <Compile Include="Assets\FollowPlayer.cs" />
+     <Compile Include="Assets\Generator.cs" />
      <Compile Include="Assets\Inventory\Highlighting.cs" />
      <Compile Include="Assets\Inventory\Inventory.cs" />
      <Compile Include="Assets\Inventory\Item.cs" />
@@ -55,10 +58,13 @@
      <Compile Include="Assets\Inventory\PlatformItem.cs" />
      <Compile Include="Assets\Inventory\Slot.cs" />
      <Compile Include="Assets\Inventory\Sword.cs" />
-     <Compile Include="Assets\Platforms\Ladder.cs" />
-     <Compile Include="Assets\Platforms\Pickupable.cs" />
-     <Compile Include="Assets\Platforms\Platform.cs" />
-     <Compile Include="Assets\Platforms\Rope.cs" />
+     <Compile Include="Assets\Platforms\Scripts\Ladder.cs" />
+     <Compile Include="Assets\Platforms\Scripts\Pickupable.cs" />
+     <Compile Include="Assets\Platforms\Scripts\PlaceRealPlatform.cs" />
+     <Compile Include="Assets\Platforms\Scripts\Platform.cs" />
+     <Compile Include="Assets\Platforms\Scripts\Rope.cs" />
+     <Compile Include="Assets\PlayerInfo.cs" />
+     <Compile Include="Assets\PuzzlePrefabs\PuzzleChunk.cs" />
      <Compile Include="Assets\WorldItems\WorldItem.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
