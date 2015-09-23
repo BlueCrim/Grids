@@ -9,6 +9,7 @@ public class Generator : MonoBehaviour {
 	public List<GameObject> chunks;
 	public GameObject player;
 
+<<<<<<< HEAD
 	private bool[,] occupied = new bool[1024,1024];
 
 	// Use this for initialization
@@ -37,11 +38,21 @@ public class Generator : MonoBehaviour {
 			child.PlaceReal();
 		}
 
+=======
+	// Use this for initialization
+	void Awake () {
+
+		int count = 0;
+
+		//make a random chunk
+		GameObject first = Instantiate (chunks [Random.Range (0, chunks.Count)]);
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
 		List<GameObject> ePoints = first.GetComponent<ChunkInfo> ().exitPoints;
 		List<Rect> levelBounds = new List<Rect>();
 		levelBounds.Add (first.GetComponent<ChunkInfo> ().chunkBounds);
 
 		for (int i = 0; i < ePoints.Count; i++) {
+<<<<<<< HEAD
 //Debug.Log (ePoints[i].name + " " + ePoints[i].transform.position);
 		}
 
@@ -50,6 +61,12 @@ public class Generator : MonoBehaviour {
 			//make a new try
 			retries++;
 
+=======
+			//Debug.Log (ePoints[i].name + " " + ePoints[i].transform.position);
+		}
+
+		while (count < 15) {
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
 			//pick a random exit point
 			GameObject tempExit = ePoints[Random.Range(0, ePoints.Count)];
 
@@ -84,7 +101,11 @@ public class Generator : MonoBehaviour {
 					overlapping = true;
 				}
 				else{
+<<<<<<< HEAD
 //Debug.Log (otherRect + " " + levelBounds [i]);
+=======
+					Debug.Log (otherRect + " " + levelBounds [i]);
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
 				}
 			}
 
@@ -94,19 +115,28 @@ public class Generator : MonoBehaviour {
 
 				for(int i = 0; i < otherChunkInfo.exitPoints.Count; i++)
 				{
+<<<<<<< HEAD
 					if(addedChunk.GetComponent<ChunkInfo>().exitPoints[i].name != tempEntrance.name)
 					{
 						ePoints.Add(addedChunk.GetComponent<ChunkInfo>().exitPoints[i]);
 					}
+=======
+					ePoints.Add(addedChunk.GetComponent<ChunkInfo>().exitPoints[i]);
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
 				}
 
 				//remove the points that connected these 2 chunks
 				ePoints.Remove(tempExit);
+<<<<<<< HEAD
+=======
+				ePoints.Remove(tempEntrance);
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
 
 				count++;
 
 				addedChunk.GetComponent<ChunkInfo>().chunkBounds.position = addedChunk.transform.position;
 				levelBounds.Add(addedChunk.GetComponent<ChunkInfo>().chunkBounds);
+<<<<<<< HEAD
 
 				//place the real platforms
 				children = addedChunk.GetComponentsInChildren<PlaceRealPlatform> ();
@@ -117,6 +147,11 @@ public class Generator : MonoBehaviour {
 				retries = 0;
 //Debug.Log (ePoints.Count);
 			}
+=======
+				//Debug.Log (ePoints.Count);
+			}
+
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
 		}
 
 		Debug.Log ("Number of chunks: " + count);

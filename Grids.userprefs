@@ -2,11 +2,16 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Generator.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets\Generator.cs" Line="21" Column="28" />
       <File FileName="Assets\PuzzlePrefabs\ChunkInfo.cs" Line="1" Column="1" />
       <File FileName="Assets\Bridge.cs" Line="1" Column="1" />
       <File FileName="Assets\Platforms\Scripts\PlaceRealPlatform.cs" Line="1" Column="1" />
       <File FileName="Assets\Inventory\Inventory.cs" Line="30" Column="64" />
+=======
+      <File FileName="Assets\Generator.cs" Line="24" Column="20" />
+      <File FileName="Assets\PuzzlePrefabs\ChunkInfo.cs" Line="1" Column="1" />
+>>>>>>> 555825777638ef40d075f39ad0b3db818291f568
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
